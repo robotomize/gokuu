@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"
+      prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+<body class="path-fx-rates">
+<main role="main" class="outer-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- Add you custom twig html here -->
+                <div class="pb-4">
+                    <div class="dropdown" id="ratesDatePickerDropDown">
+                        <a href="#" id="ratesDatePicker" data-toggle="dropdown" aria-haspopup="true"
+                           aria-expanded="false">
+                            <h3 class="m-0">
+                <span class="badge badge-light d-inline-flex align-items-center py-0">
+                  <span>Date12-08-2021</span>
+                  <i class="icon-arrow-down-2" style="font-size: 8px; margin-left: 8px;"></i>
+                </span>
+                            </h3>
+                        </a>
+                        <div class="dropdown-menu p-0" aria-labelledby="ratesDatePicker">
+                            <div class="h-100 calendar__placeholder">
+                                <div id="ratesPageCalendar"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-muted"><small>Last updated <span class="dir-ltr">12 Aug 2021 6:00PM</span></small>
+                    </div>
+                </div>
+
+                <table id="ratesDateTable" class="table table-striped table-bordered table-eibor text-center">
+                    <thead>
+                    <tr>
+                        <th>Currency</th>
+                        <th>Rate</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>US Dollar</td>
+                        <td>3.672500</td>
+                    </tr>
+                    <tr>
+                        <td>Argentine Peso</td>
+                        <td>0.037830</td>
+                    </tr>
+                    <tr>
+                        <td>Australian Dollar</td>
+                        <td>2.696006</td>
+                    </tr>
+                    <tr>
+                        <td>Bangladesh Taka</td>
+                        <td>0.043328</td>
+                    </tr>
+                    <tr>
+                        <td>Bahrani Dinar</td>
+                        <td>9.740346</td>
+                    </tr>
+                    <tr>
+                        <td>Brunei Dollar</td>
+                        <td>2.704544</td>
+                    </tr>
+                    <tr>
+                        <td>Brazilian Real</td>
+                        <td>0.703032</td>
+                    </tr>
+                    <tr>
+                        <td>Botswana Pula</td>
+                        <td>0.329786</td>
+                    </tr>
+                    <tr>
+                        <td>Belarus Rouble</td>
+                        <td>1.465483</td>
+                    </tr>
+                    <tr>
+                        <td>Canadian Dollar</td>
+                        <td>2.937060</td>
+                    </tr>
+                    <tr>
+                        <td>Swiss Franc</td>
+                        <td>3.978011</td>
+                    </tr>
+                    <tr>
+                        <td>Chilean Peso</td>
+                        <td>0.004772</td>
+                    </tr>
+                    <tr>
+                        <td>Chinese Yuan - Offshore</td>
+                        <td>0.566656</td>
+                    </tr>
+                    <tr>
+                        <td>Chinese Yuan</td>
+                        <td>0.566718</td>
+                    </tr>
+                    <tr>
+                        <td>Colombian Peso</td>
+                        <td>0.000939</td>
+                    </tr>
+                    <tr>
+                        <td>Czech Koruna</td>
+                        <td>0.169544</td>
+                    </tr>
+                    <tr>
+                        <td>Danish Krone</td>
+                        <td>0.579250</td>
+                    </tr>
+                    <tr>
+                        <td>Algerian Dinar</td>
+                        <td>0.027144</td>
+                    </tr>
+                    <tr>
+                        <td>Egypt Pound</td>
+                        <td>0.233917</td>
+                    </tr>
+                    <tr>
+                        <td>Euro</td>
+                        <td>4.307918</td>
+                    </tr>
+                    <tr>
+                        <td>GB Pound</td>
+                        <td>5.080935</td>
+                    </tr>
+                    <tr>
+                        <td>Hongkong Dollar</td>
+                        <td>0.472007</td>
+                    </tr>
+                    <tr>
+                        <td>Hungarian Forint</td>
+                        <td>0.012201</td>
+                    </tr>
+                    <tr>
+                        <td>Indonesia Rupiah</td>
+                        <td>0.000255</td>
+                    </tr>
+                    <tr>
+                        <td>Indian Rupee</td>
+                        <td>0.049441</td>
+                    </tr>
+                    <tr>
+                        <td>Iceland Krona</td>
+                        <td>0.029108</td>
+                    </tr>
+                    <tr>
+                        <td>Jordan Dinar</td>
+                        <td>5.179831</td>
+                    </tr>
+                    <tr>
+                        <td>Japanese Yen</td>
+                        <td>0.033241</td>
+                    </tr>
+                    <tr>
+                        <td>Kenya Shilling</td>
+                        <td>0.033631</td>
+                    </tr>
+                    <tr>
+                        <td>Korean Won</td>
+                        <td>0.003157</td>
+                    </tr>
+                    <tr>
+                        <td>Kuwaiti Dinar</td>
+                        <td>12.205052</td>
+                    </tr>
+                    <tr>
+                        <td>Kazakhstan Tenge</td>
+                        <td>0.008646</td>
+                    </tr>
+                    <tr>
+                        <td>Lebanon Pound</td>
+                        <td>0.002429</td>
+                    </tr>
+                    <tr>
+                        <td>Sri Lanka Rupee</td>
+                        <td>0.018409</td>
+                    </tr>
+                    <tr>
+                        <td>Moroccan Dirham</td>
+                        <td>0.408173</td>
+                    </tr>
+                    <tr>
+                        <td>Macedonia Denar</td>
+                        <td>0.069926</td>
+                    </tr>
+                    <tr>
+                        <td>Mexican Peso</td>
+                        <td>0.184628</td>
+                    </tr>
+                    <tr>
+                        <td>Malaysia Ringgit</td>
+                        <td>0.867588</td>
+                    </tr>
+                    <tr>
+                        <td>Nigerian Naira</td>
+                        <td>0.008932</td>
+                    </tr>
+                    <tr>
+                        <td>Norwegian Krone</td>
+                        <td>0.414747</td>
+                    </tr>
+                    <tr>
+                        <td>NewZealand Dollar</td>
+                        <td>2.572499</td>
+                    </tr>
+                    <tr>
+                        <td>Omani Rial</td>
+                        <td>9.538466</td>
+                    </tr>
+                    <tr>
+                        <td>Peru Sol</td>
+                        <td>0.896847</td>
+                    </tr>
+                    <tr>
+                        <td>Philippine Piso</td>
+                        <td>0.072795</td>
+                    </tr>
+                    <tr>
+                        <td>Pakistan Rupee</td>
+                        <td>0.022352</td>
+                    </tr>
+                    <tr>
+                        <td>Polish Zloty</td>
+                        <td>0.940774</td>
+                    </tr>
+                    <tr>
+                        <td>Qatari Riyal</td>
+                        <td>1.008651</td>
+                    </tr>
+                    <tr>
+                        <td>Serbian Dinar</td>
+                        <td>0.036652</td>
+                    </tr>
+                    <tr>
+                        <td>Russia Rouble</td>
+                        <td>0.049895</td>
+                    </tr>
+                    <tr>
+                        <td>Saudi Riyal</td>
+                        <td>0.979255</td>
+                    </tr>
+                    <tr>
+                        <td>Sudanese Pound</td>
+                        <td>0.008245</td>
+                    </tr>
+                    <tr>
+                        <td>Swedish Krona</td>
+                        <td>0.422515</td>
+                    </tr>
+                    <tr>
+                        <td>Singapore Dollar</td>
+                        <td>2.704345</td>
+                    </tr>
+                    <tr>
+                        <td>Thai Baht</td>
+                        <td>0.111086</td>
+                    </tr>
+                    <tr>
+                        <td>Tunisian Dinar</td>
+                        <td>1.315695</td>
+                    </tr>
+                    <tr>
+                        <td>Turkish Lira</td>
+                        <td>0.428285</td>
+                    </tr>
+                    <tr>
+                        <td>Trin Tob Dollar</td>
+                        <td>0.540042</td>
+                    </tr>
+                    <tr>
+                        <td>Taiwan Dollar</td>
+                        <td>0.131990</td>
+                    </tr>
+                    <tr>
+                        <td>Tanzania Shilling</td>
+                        <td>0.001584</td>
+                    </tr>
+                    <tr>
+                        <td>Uganda Shilling</td>
+                        <td>0.001038</td>
+                    </tr>
+                    <tr>
+                        <td>Vietnam Dong</td>
+                        <td>0.000161</td>
+                    </tr>
+                    <tr>
+                        <td>Yemen Rial</td>
+                        <td>0.014601</td>
+                    </tr>
+                    <tr>
+                        <td>South Africa Rand</td>
+                        <td>0.248592</td>
+                    </tr>
+                    <tr>
+                        <td>Zambian Kwacha</td>
+                        <td>0.190236</td>
+                    </tr>
+                    <tr>
+                        <td>Azerbaijan manat</td>
+                        <td>2.161566</td>
+                    </tr>
+                    <tr>
+                        <td>Bulgarian lev</td>
+                        <td>2.202531</td>
+                    </tr>
+                    <tr>
+                        <td>Croatian kuna</td>
+                        <td>0.574412</td>
+                    </tr>
+                    <tr>
+                        <td>Ethiopian birr</td>
+                        <td>0.081497</td>
+                    </tr>
+                    <tr>
+                        <td>Iraqi dinar</td>
+                        <td>0.002517</td>
+                    </tr>
+                    <tr>
+                        <td>Israeli new shekel</td>
+                        <td>1.140068</td>
+                    </tr>
+                    <tr>
+                        <td>Libyan dinar</td>
+                        <td>0.811262</td>
+                    </tr>
+                    <tr>
+                        <td>Mauritian rupee</td>
+                        <td>0.086310</td>
+                    </tr>
+                    <tr>
+                        <td>Romanian leu</td>
+                        <td>0.877057</td>
+                    </tr>
+                    <tr>
+                        <td>Syrian pound</td>
+                        <td>0.001462</td>
+                    </tr>
+                    <tr>
+                        <td>Turkmen manat</td>
+                        <td>1.050787</td>
+                    </tr>
+                    <tr>
+                        <td>Uzbekistani som</td>
+                        <td>0.000344</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
