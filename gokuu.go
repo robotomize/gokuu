@@ -92,20 +92,6 @@ type Provider struct {
 	provider.Source
 }
 
-// Exclude exclude extra providers
-func Exclude(names ...string) Option {
-	return func(e *exchanger) {
-		for _, name := range names {
-			for idx, source := range e.providers {
-				if source.name == name {
-					e.providers = append(e.providers[:idx], e.providers[idx+1:]...)
-					break
-				}
-			}
-		}
-	}
-}
-
 // WithAverageMergeStrategy use the merge strategy to calculate the average Value of exchange rates
 // with a large number of providers
 func WithAverageMergeStrategy() Option {
@@ -166,16 +152,16 @@ func New(client *http.Client, opts ...Option) *exchanger {
 			RequestTimeout: DefaultRequestTimeout,
 			MergeStrategy:  MergeStrategyTypeRace,
 		},
-		providers: []Provider{
-			{
-				name:   ProviderNameRCB,
-				prior:  0,
-				Source: rcb.NewSource(client),
-			},
+		providers: []*Provider{
 			{
 				name:   ProviderNameECB,
-				prior:  1,
+				prior:  0,
 				Source: ecb.NewSource(client),
+			},
+			{
+				name:   ProviderNameRCB,
+				prior:  1,
+				Source: rcb.NewSource(client),
 			},
 			{
 				name:   ProviderNameCAE,
@@ -200,7 +186,7 @@ type exchanger struct {
 	opts Options
 
 	mtx          sync.RWMutex
-	providers    []Provider
+	providers    []*Provider
 	exchangeable []label.Symbol
 	merger       MergeFunc
 }
@@ -314,12 +300,41 @@ func (e *exchanger) GetExchangeable() []label.Symbol {
 	return e.exchangeable
 }
 
-// RegisterProvider allows you to add your own provider of exchange rate data
-func (e *exchanger) RegisterProvider(name string, source provider.Source, prior Prior) {
+// Delete providers by name
+func (e *exchanger) Delete(names ...string) {
+	for _, name := range names {
+		for idx, source := range e.providers {
+			if source.name == name {
+				source = nil
+				e.providers = append(e.providers[:idx], e.providers[idx+1:]...)
+				break
+			}
+		}
+	}
+}
+
+// ChangePrior change provider priority
+func (e *exchanger) ChangePrior(name string, prior Prior) {
 	e.mtx.Lock()
 	defer e.mtx.Unlock()
 
-	e.providers = append(e.providers, Provider{
+	for _, p := range e.providers {
+		if p.name == name {
+			p.prior = prior
+		}
+	}
+
+	sort.Slice(e.providers, func(i, j int) bool {
+		return e.providers[i].prior > e.providers[j].prior
+	})
+}
+
+// Register allows you to add your own provider of exchange rate data
+func (e *exchanger) Register(name string, source provider.Source, prior Prior) {
+	e.mtx.Lock()
+	defer e.mtx.Unlock()
+
+	e.providers = append(e.providers, &Provider{
 		name:   name,
 		Source: source,
 		prior:  prior,
@@ -453,7 +468,7 @@ func (e *exchanger) merge(batch *BatchExchanges, rates []ExchangeRate) {
 	mergeStrategyFn(batch, rates)
 }
 
-func (e *exchanger) expandRates(source Provider, rates []provider.ExchangeRate) []ExchangeRate {
+func (e *exchanger) expandRates(source *Provider, rates []provider.ExchangeRate) []ExchangeRate {
 	list := make([]ExchangeRate, len(rates))
 	for i := range rates {
 		list[i] = ExchangeRate{

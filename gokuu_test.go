@@ -12,7 +12,7 @@ import (
 	"github.com/robotomize/gokuu/provider"
 )
 
-func TestExchanger_UseProvider(t *testing.T) {
+func TestExchanger_RegisterProvider(t *testing.T) {
 	t.Parallel()
 
 	e := New(http.DefaultClient)
@@ -28,7 +28,7 @@ func TestExchanger_UseProvider(t *testing.T) {
 	source := provider.NewMockSource(ctrl)
 	source.EXPECT().GetExchangeable().Return([]label.Symbol{})
 
-	e.RegisterProvider(tc.expectedName, source, 1)
+	e.Register(tc.expectedName, source, 1)
 
 	if diff := cmp.Diff(tc.expectedLen, len(e.providers)); diff != "" {
 		t.Errorf("bad expected len (-want, +got): %s", diff)
@@ -43,7 +43,7 @@ func TestExchanger_UseProvider(t *testing.T) {
 	t.Errorf("unable find source with name: %s", tc.expectedName)
 }
 
-func TestExcludeSource(t *testing.T) {
+func TestDelete(t *testing.T) {
 	t.Parallel()
 
 	testCases := []struct {
@@ -68,7 +68,8 @@ func TestExcludeSource(t *testing.T) {
 		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
 			t.Parallel()
-			e := New(http.DefaultClient, Exclude(tc.excluded...))
+			e := New(http.DefaultClient)
+			e.Delete(tc.excluded...)
 			for _, source := range e.providers {
 				for _, s := range tc.excluded {
 					if source.name == s {
@@ -121,15 +122,15 @@ func TestExchanger_GetExchangeable(t *testing.T) {
 			sourceSetTwo.EXPECT().GetExchangeable().Return(tc.sourceSymbolsSetTwo).AnyTimes()
 
 			e := New(http.DefaultClient)
-			e.providers = make([]Provider, 0)
+			e.providers = make([]*Provider, 0)
 			e.providers = append(
 				e.providers,
-				Provider{
+				&Provider{
 					name:   "TestSourceOne",
 					prior:  1,
 					Source: sourceSetOne,
 				},
-				Provider{
+				&Provider{
 					name:   "TestSourceTwo",
 					prior:  1,
 					Source: sourceSetTwo,
@@ -451,7 +452,7 @@ func TestExchanger_GetLatest(t *testing.T) {
 
 			e := New(http.DefaultClient, opts...)
 			e.merger = tc.mergeFunc
-			e.providers = make([]Provider, 0)
+			e.providers = make([]*Provider, 0)
 			for _, s := range tc.sources {
 				var rates []provider.ExchangeRate
 				for idx, set := range s.output {
@@ -478,7 +479,7 @@ func TestExchanger_GetLatest(t *testing.T) {
 				source.EXPECT().GetExchangeable().Return(tc.labels).AnyTimes()
 				source.EXPECT().FetchLatest(gomock.Any()).Return(rates, nil).AnyTimes()
 
-				e.RegisterProvider(s.name, source, s.prior)
+				e.Register(s.name, source, s.prior)
 			}
 
 			resp := e.GetLatest(ctx)
