@@ -1,4 +1,7 @@
 # Gokuu
+
+[![Go Report](https://goreportcard.com/badge/github.com/robotomize/gokuu)](https://goreportcard.com/report/github.com/robotomize/gokuu)
+
 Gokuu is a library for getting up-to-date exchange rates and converting them on Go. Gokuu is a controller and plug-in data sources that work with a specific financial institution. 
 
 Right now, Gokuu can retrieve data from the European central bank, the Russian central bank and the central bank of the United Arab Emirates. Altogether, these sources cover exchange rates for 59 currencies
