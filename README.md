@@ -1,6 +1,9 @@
 # Gokuu
 
 [![Go Report](https://goreportcard.com/badge/github.com/robotomize/gokuu)](https://goreportcard.com/report/github.com/robotomize/gokuu)
+[![codecov](https://codecov.io/gh/robotomize/gokuu/branch/main/graph/badge.svg)](https://codecov.io/gh/robotomize/gokuu)
+[![Build status](https://github.com/robotomize/gokuu/actions/workflows/main.yml/badge.svg)](https://github.com/robotomize/gokuu/actions)
+[![GitHub license](https://img.shields.io/github/license/robotomize/gokuu.svg)](https://github.com/robotomize/gokuu/blob/master/LICENSE)
 
 Gokuu is a library for getting up-to-date exchange rates and converting them on Go. Gokuu is a controller and plug-in data sources that work with a specific financial institution. 
 
@@ -89,6 +92,9 @@ label.GetCurrencies()
 label.GetCountriesUsingCurrency("currency-symbol")
 label.GetCurrenciesUsedCountry("countryname")
 ```
+
+## Contributing
+welcome
 
 ## License
 
