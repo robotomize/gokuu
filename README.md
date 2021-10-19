@@ -1,6 +1,7 @@
 # Gokuu
 
 [![Go Report](https://goreportcard.com/badge/github.com/robotomize/gokuu)](https://goreportcard.com/report/github.com/robotomize/gokuu)
+[![codebeat badge](https://codebeat.co/badges/a4a12b24-98e6-4627-b01c-8b124561f2e1)](https://codebeat.co/projects/github-com-robotomize-gokuu-main)
 [![codecov](https://codecov.io/gh/robotomize/gokuu/branch/main/graph/badge.svg)](https://codecov.io/gh/robotomize/gokuu)
 [![Build status](https://github.com/robotomize/gokuu/actions/workflows/main.yml/badge.svg)](https://github.com/robotomize/gokuu/actions)
 [![GitHub license](https://img.shields.io/github/license/robotomize/gokuu.svg)](https://github.com/robotomize/gokuu/blob/master/LICENSE)
