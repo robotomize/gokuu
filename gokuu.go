@@ -203,8 +203,7 @@ type ConvOpt struct {
 // Convert returns an object with currency conversion data.
 // The CacheFn option allows you to define your own data delivery function for caching
 //
-//
-// 	ctx := context.Background()
+//	ctx := context.Background()
 //	g := gokuu.New()
 //	latest := g.GetLatest(ctx)
 //	g.Convert(

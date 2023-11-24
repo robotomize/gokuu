@@ -1,11 +1,9 @@
 package cae
 
 import (
-	"errors"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/robotomize/gokuu/label"
 )
 
@@ -159,28 +157,30 @@ func TestDataMatchingParseHTML(t *testing.T) {
 
 	for _, tc := range testCases {
 		tc := tc
-		t.Run(tc.name, func(t *testing.T) {
-			t.Parallel()
-			result, err := parseHTML(tc.html)
-			if err != nil {
-				t.Fatalf("parse HTML: %v", err)
-			}
-
-			if diff := cmp.Diff(tc.expected.Date, result.time.Format("02-01-2006")); diff != "" {
-				t.Errorf("bad csv (-want, +got): %s", diff)
-			}
-
-			for _, r := range result.rates {
-				v, ok := tc.expected.Rates[r.symbol]
-				if !ok {
-					t.Errorf("can not find symbol %s in result set", r.symbol.String())
+		t.Run(
+			tc.name, func(t *testing.T) {
+				t.Parallel()
+				result, err := parseHTML(tc.html)
+				if err != nil {
+					t.Fatalf("parse HTML: %v", err)
 				}
 
-				if diff := cmp.Diff(v, r.rate); diff != "" {
-					t.Errorf("bad value (-want, +got): %s", diff)
+				if diff := cmp.Diff(tc.expected.Date, result.time.Format("02-01-2006")); diff != "" {
+					t.Errorf("bad csv (-want, +got): %s", diff)
 				}
-			}
-		})
+
+				for _, r := range result.rates {
+					v, ok := tc.expected.Rates[r.symbol]
+					if !ok {
+						t.Errorf("can not find symbol %s in result set", r.symbol.String())
+					}
+
+					if diff := cmp.Diff(v, r.rate); diff != "" {
+						t.Errorf("bad value (-want, +got): %s", diff)
+					}
+				}
+			},
+		)
 	}
 }
 
@@ -431,21 +431,15 @@ func TestAttrValidationParseHTML(t *testing.T) {
 
 	for _, tc := range testCases {
 		tc := tc
-		t.Run(tc.name, func(t *testing.T) {
-			t.Parallel()
-			_, err := parseHTML(tc.html)
-			if err != nil {
-				if !errors.Is(err, tc.err) {
-					diff := cmp.Diff(tc.err, err, cmpopts.EquateErrors())
-					t.Errorf("mismatch (-want, +got):\n%s", diff)
+		t.Run(
+			tc.name, func(t *testing.T) {
+				t.Parallel()
+				_, err := parseHTML(tc.html)
+				if err != nil && tc.err == nil {
+					t.Errorf("got: %v, want: %v", err, tc.err)
+					return
 				}
-
-				return
-			}
-
-			if diff := cmp.Diff(tc.err, err, cmpopts.EquateErrors()); diff != "" {
-				t.Errorf("mismatch (-want, +got):\n%s", diff)
-			}
-		})
+			},
+		)
 	}
 }

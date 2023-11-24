@@ -25,9 +25,9 @@ func TestRemoveExtraSpaces(t *testing.T) {
 			want:   "Hello world!",
 		},
 		{
-			name: "test_not_extra_space_inner_tab",
+			name:   "test_not_extra_space_inner_tab",
 			source: "Hello        	world!",
-			want: "Hello world!",
+			want:   "Hello world!",
 		},
 		{
 			name:   "test_not_extra_space_inner_outer",
@@ -35,14 +35,14 @@ func TestRemoveExtraSpaces(t *testing.T) {
 			want:   "Hello world!",
 		},
 		{
-			name: "test_not_extra_space_inner_outer_tab_0",
+			name:   "test_not_extra_space_inner_outer_tab_0",
 			source: "   Hello        	world!   ",
-			want: "Hello world!",
+			want:   "Hello world!",
 		},
 		{
-			name: "test_not_extra_space_inner_outer_tab_1",
+			name:   "test_not_extra_space_inner_outer_tab_1",
 			source: "   	Hello        	w.  o.  r.  l.  d!   ",
-			want: "Hello w. o. r. l. d!",
+			want:   "Hello w. o. r. l. d!",
 		},
 	}
 
@@ -89,9 +89,9 @@ func TestCamelCase(t *testing.T) {
 			want:   "HelloWorld!",
 		},
 		{
-			name: "test_tab_camel_case",
+			name:   "test_tab_camel_case",
 			source: "Hello  	world!",
-			want: "Hello	World!",
+			want:   "Hello	World!",
 		},
 	}
 

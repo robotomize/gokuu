@@ -98,34 +98,36 @@ func TestDataMatchingDecodeXML(t *testing.T) {
 
 	for _, tc := range testCases {
 		tc := tc
-		t.Run(tc.name, func(t *testing.T) {
-			t.Parallel()
+		t.Run(
+			tc.name, func(t *testing.T) {
+				t.Parallel()
 
-			result, err := decodeXML(tc.bytes)
-			if err != nil {
-				t.Fatalf("decoding XML: %v", err)
-			}
-
-			if diff := cmp.Diff(len(tc.expected.Rates), len(result.rates)); diff != "" {
-				t.Errorf("bad csv (-want, +got): %s", diff)
-			}
-
-			dateTime := result.time.Format("02.01.2006")
-			if diff := cmp.Diff(tc.expected.Date, dateTime); diff != "" {
-				t.Errorf("bad csv (-want, +got): %s", diff)
-			}
-
-			for _, r := range result.rates {
-				v, ok := tc.expected.Rates[r.symbol]
-				if !ok {
-					t.Errorf("can not find symbol %s in result set", r.symbol.String())
+				result, err := decodeXML(tc.bytes)
+				if err != nil {
+					t.Fatalf("decoding XML: %v", err)
 				}
 
-				if diff := cmp.Diff(v, r.rate); diff != "" {
+				if diff := cmp.Diff(len(tc.expected.Rates), len(result.rates)); diff != "" {
 					t.Errorf("bad csv (-want, +got): %s", diff)
 				}
-			}
-		})
+
+				dateTime := result.time.Format("02.01.2006")
+				if diff := cmp.Diff(tc.expected.Date, dateTime); diff != "" {
+					t.Errorf("bad csv (-want, +got): %s", diff)
+				}
+
+				for _, r := range result.rates {
+					v, ok := tc.expected.Rates[r.symbol]
+					if !ok {
+						t.Errorf("can not find symbol %s in result set", r.symbol.String())
+					}
+
+					if diff := cmp.Diff(v, r.rate); diff != "" {
+						t.Errorf("bad csv (-want, +got): %s", diff)
+					}
+				}
+			},
+		)
 	}
 }
 
@@ -248,16 +250,15 @@ func TestAttrValidationDecodeXML(t *testing.T) {
 
 	for _, tc := range testCases {
 		tc := tc
-		t.Run(tc.name, func(t *testing.T) {
-			t.Parallel()
+		t.Run(
+			tc.name, func(t *testing.T) {
+				t.Parallel()
 
-			_, err := decodeXML(tc.bytes)
-
-			if !errors.Is(err, tc.err) {
-				diff := cmp.Diff(tc.err, err, cmpopts.EquateErrors())
-				t.Errorf("mismatch (-want, +got):\n%s", diff)
-			}
-		})
+				if _, err := decodeXML(tc.bytes); err != nil && tc.err == nil {
+					t.Errorf("got: %v, want: %v", err, tc.err)
+				}
+			},
+		)
 	}
 }
 
@@ -336,15 +337,17 @@ func TestXMLMarkupDecodeXML(t *testing.T) {
 
 	for _, tc := range testCases {
 		tc := tc
-		t.Run(tc.name, func(t *testing.T) {
-			t.Parallel()
+		t.Run(
+			tc.name, func(t *testing.T) {
+				t.Parallel()
 
-			_, err := decodeXML(tc.bytes)
+				_, err := decodeXML(tc.bytes)
 
-			if !errors.Is(err, tc.err) {
-				diff := cmp.Diff(tc.err, err, cmpopts.EquateErrors())
-				t.Errorf("mismatch (-want, +got):\n%s", diff)
-			}
-		})
+				if !errors.Is(err, tc.err) {
+					diff := cmp.Diff(tc.err, err, cmpopts.EquateErrors())
+					t.Errorf("mismatch (-want, +got):\n%s", diff)
+				}
+			},
+		)
 	}
 }

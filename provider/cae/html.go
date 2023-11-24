@@ -12,16 +12,13 @@ import (
 	"golang.org/x/net/html"
 )
 
-var (
-	errParseAttrNotValid = errors.New("attr is not valid")
-	errHTMLNotValid      = errors.New("html not valid")
-)
+var errParseAttrNotValid = errors.New("attr is not valid")
 
 func parseHTML(b []byte) (aedLatestRates, error) {
 	var dailyRates aedLatestRates
 	root, err := html.Parse(bytes.NewReader(b))
 	if err != nil {
-		return dailyRates, fmt.Errorf("%w: html parse: %v", errHTMLNotValid, err)
+		return dailyRates, fmt.Errorf("html parse: %w", err)
 	}
 
 	doc := goquery.NewDocumentFromNode(root)
@@ -34,7 +31,7 @@ func parseHTML(b []byte) (aedLatestRates, error) {
 	date = date[4:]
 	dt, err := time.Parse("02-01-2006", date)
 	if err != nil {
-		return dailyRates, errParseAttrNotValid
+		return dailyRates, fmt.Errorf("time.Parse: %w", err)
 	}
 
 	dailyRates.time = dt
@@ -76,13 +73,15 @@ func parseHTML(b []byte) (aedLatestRates, error) {
 
 		rate, err := strconv.ParseFloat(rateStr, 64)
 		if err != nil {
-			return aedLatestRates{}, errParseAttrNotValid
+			return aedLatestRates{}, fmt.Errorf("strconv.ParseFloat: %w", err)
 		}
 
-		dailyRates.rates = append(dailyRates.rates, aedExchangeRate{
-			symbol: symbol,
-			rate:   rate,
-		})
+		dailyRates.rates = append(
+			dailyRates.rates, aedExchangeRate{
+				symbol: symbol,
+				rate:   rate,
+			},
+		)
 	}
 
 	return dailyRates, nil

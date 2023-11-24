@@ -393,7 +393,7 @@ type writer struct {
 }
 
 func (w *writer) flush(fileName string) error {
-	if err := os.WriteFile(fileName, w.buf.Bytes(), 0600); err != nil {
+	if err := os.WriteFile(fileName, w.buf.Bytes(), 0o600); err != nil {
 		return fmt.Errorf("open file: %w", err)
 	}
 

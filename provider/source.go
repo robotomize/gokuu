@@ -7,9 +7,10 @@ import (
 	"github.com/robotomize/gokuu/label"
 )
 
-//go:generate mockgen -source source.go -destination mock_source.go -package provider
 // Source is an interface for getting data from external sources. Source takes care of receiving data,
 // working with proxies and giving back exchange rates
+//
+//go:generate mockgen -source source.go -destination mock_source.go -package provider
 type Source interface {
 	// FetchLatest  of obtaining the latest exchange rate data
 	FetchLatest(ctx context.Context) ([]ExchangeRate, error)

@@ -78,7 +78,7 @@ TokenLoop:
 				for _, r := range currNode.Rates {
 					v, err := strconv.ParseFloat(strings.Replace(r.Value, ",", ".", -1), 64)
 					if err != nil {
-						return dailyRates, fmt.Errorf("%w: %v", errAttributeNotValid, err)
+						return dailyRates, fmt.Errorf("strconv.ParseFloat: %w", err)
 					}
 
 					if v <= 0 {
@@ -89,10 +89,12 @@ TokenLoop:
 						continue
 					}
 
-					dailyRates.rates = append(dailyRates.rates, rubExchangeRate{
-						symbol: r.Currency,
-						rate:   v,
-					})
+					dailyRates.rates = append(
+						dailyRates.rates, rubExchangeRate{
+							symbol: r.Currency,
+							rate:   v,
+						},
+					)
 				}
 
 				currNode = nil
@@ -109,7 +111,7 @@ type XMLAttrTime time.Time
 func (x *XMLAttrTime) UnmarshalXMLAttr(attr xml.Attr) error {
 	t, err := time.Parse("02.01.2006", attr.Value)
 	if err != nil {
-		return fmt.Errorf("%w: %v", errAttributeNotValid, err)
+		return fmt.Errorf("time.Parse: %w", err)
 	}
 
 	*x = XMLAttrTime(t)

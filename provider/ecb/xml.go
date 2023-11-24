@@ -75,10 +75,12 @@ func decodeXML() decodeFunc {
 					}
 
 					for _, r := range currNode.Rates {
-						dailyRate.rates = append(dailyRate.rates, euroExchangeRate{
-							symbol: label.Symbol(r.Currency),
-							rate:   r.Rate.Float64(),
-						})
+						dailyRate.rates = append(
+							dailyRate.rates, euroExchangeRate{
+								symbol: label.Symbol(r.Currency),
+								rate:   r.Rate.Float64(),
+							},
+						)
 					}
 
 					if err := iterFunc(dailyRate); err != nil {
@@ -106,7 +108,7 @@ type XMLAttrTime time.Time
 func (x *XMLAttrTime) UnmarshalXMLAttr(attr xml.Attr) error {
 	t, err := time.Parse("2006-01-02", attr.Value)
 	if err != nil {
-		return fmt.Errorf("%w: %v", errAttributeNotValid, err)
+		return fmt.Errorf("time.Parse: %w", err)
 	}
 
 	*x = XMLAttrTime(t)
@@ -132,14 +134,14 @@ var _ xml.UnmarshalerAttr = (*XMLRateAttr)(nil)
 
 type XMLRateAttr float64
 
-func (i XMLRateAttr) Float64() float64 {
-	return float64(i)
+func (i *XMLRateAttr) Float64() float64 {
+	return float64(*i)
 }
 
 func (i *XMLRateAttr) UnmarshalXMLAttr(attr xml.Attr) error {
 	rate, err := strconv.ParseFloat(attr.Value, 64)
 	if err != nil {
-		return fmt.Errorf("%w: %v", errAttributeNotValid, err)
+		return fmt.Errorf("strconv.ParseFloat: %w", err)
 	}
 
 	if rate <= 0 {

@@ -29,11 +29,6 @@ func decodeCSV() decodeFunc {
 					break TokenLoop
 				}
 
-				var parseError *csv.ParseError
-				if errors.As(err, &parseError) {
-					return fmt.Errorf("%w: %v", errDecodeToken, parseError.Error())
-				}
-
 				return fmt.Errorf("csv decoder read: %w", err)
 			}
 
@@ -61,13 +56,13 @@ func decodeCSV() decodeFunc {
 				}
 
 				if n == 0 && header[n] != "Date" {
-					return fmt.Errorf("%w: %v", errAttributeNotValid, err)
+					return errAttributeNotValid
 				}
 
 				if header[n] == "Date" {
 					t, err := time.Parse("02 January 2006", token)
 					if err != nil {
-						return fmt.Errorf("%w: %v", errAttributeNotValid, err)
+						return fmt.Errorf("time.Parse: %w", err)
 					}
 
 					dailyRate.time = t
@@ -82,17 +77,19 @@ func decodeCSV() decodeFunc {
 
 				r, err := strconv.ParseFloat(token, 64)
 				if err != nil {
-					return fmt.Errorf("%w: %v", errAttributeNotValid, err)
+					return fmt.Errorf("strconv.ParseFloat: %w", err)
 				}
 
 				if r <= 0 {
 					return errAttributeNotValid
 				}
 
-				dailyRate.rates = append(dailyRate.rates, euroExchangeRate{
-					symbol: currencySymbol,
-					rate:   r,
-				})
+				dailyRate.rates = append(
+					dailyRate.rates, euroExchangeRate{
+						symbol: currencySymbol,
+						rate:   r,
+					},
+				)
 			}
 
 			if err := iterFunc(dailyRate); err != nil {

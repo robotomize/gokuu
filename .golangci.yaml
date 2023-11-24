@@ -19,8 +19,6 @@ linters:
   enable:
     - 'asciicheck'
     - 'bodyclose'
-    - 'deadcode'
-    - 'depguard'
     - 'dogsled'
     - 'errcheck'
     - 'errorlint'
@@ -43,12 +41,10 @@ linters:
     - 'predeclared'
     - 'sqlclosecheck'
     - 'staticcheck'
-    - 'structcheck'
     - 'stylecheck'
     - 'typecheck'
     - 'unconvert'
     - 'unused'
-    - 'varcheck'
     - 'whitespace'
 
 issues:

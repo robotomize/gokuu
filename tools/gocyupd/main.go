@@ -145,7 +145,7 @@ func sync(ctx context.Context, client *HTTPClient, fileName string, hasherFunc f
 	defer cancel()
 	var (
 		oldHash, newHash []byte
-		mode             os.FileMode = 0600
+		mode             os.FileMode = 0o600
 	)
 
 	body, err := client.do(ctx)
