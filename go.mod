@@ -11,9 +11,7 @@ require (
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1
 	github.com/sethvargo/go-retry v0.1.0
-	golang.org/x/mod v0.5.1 // indirect
-	golang.org/x/net v0.0.0-20211014222326-fd004c51d1d6
-	golang.org/x/sys v0.0.0-20211013075003-97ac67df715c // indirect
-	golang.org/x/text v0.3.7
-	golang.org/x/tools v0.1.7
+	golang.org/x/net v0.17.0
+	golang.org/x/text v0.13.0
+	golang.org/x/tools v0.6.0
 )
